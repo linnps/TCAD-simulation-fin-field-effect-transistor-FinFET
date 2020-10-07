@@ -1,0 +1,167 @@
+go atlas
+
+
+
+mesh three.d
+
+
+
+x.m l=0.0        s=0.002
+
+x.m l=0.05       s=0.002 
+
+y.m l=-0.01    s=0.001
+
+y.m l=-0.004    s=0.0003
+
+y.m l= 0.003    s=0.0003
+
+y.m l= 0.004    s=0.0005
+
+y.m l= 0.005    s=0.0005
+
+y.m l= 0.006    s=0.0005
+
+
+
+z.m l= -0.006    s=0.0005
+
+z.m l= -0.005    s=0.0005
+
+z.m l= -0.004   s=0.0005
+
+z.m l=-0.003    s=0.0003
+
+z.m l= 0.003    s=0.0003
+
+z.m l= 0.004    s=0.0005
+
+z.m l= 0.005    s=0.0005
+
+z.m l= 0.006    s=0.0005
+
+
+
+region      num=3   material=air
+
+region      num=2   sio2     x.min=0.01 x.max=0.04 y.min=-0.004 y.max=0.004 z.min=-0.004 z.max=0.004
+
+region      num=2   sio2     x.min=0.0 x.max=0.05 z.min=-0.006 z.max=0.006 y.min=-0.01 y.max=-0.004
+
+region      num=1   silicon  x.min=0.0 x.max=0.05 y.min=-0.004 y.max=0.003  z.min=-0.003 z.max=0.003
+
+
+
+electrode   num=2 name= source x.max=0                 y.min=-0.004 y.max=0.004  z.min=-0.004 z.max=0.004
+
+electrode   num=3 name= drain  x.min=0.05              y.min=-0.004 y.max=0.004  z.min=-0.004 z.max=0.004
+
+
+
+electrode   num=1 name= gate  x.min=0.01 x.max=0.04   z.min=-0.006  z.max=-0.004 y.min=-0.004 y.max=0.006
+
+electrode   num=1 name= gate  x.min=0.01 x.max=0.04   z.min= 0.004  z.max= 0.006 y.min=-0.004 y.max=0.006
+
+electrode   num=1 name= gate  x.min=0.01 x.max=0.04   y.min= 0.004  y.max= 0.006 z.min=-0.006 z.max=0.006
+
+
+
+
+
+contact name= source reflect
+
+contact name= drain reflect
+
+contact name= gate workfun=4.8
+
+
+
+doping region=1 n.type uniform conc=1.0E20 x.min=0.0 x.max=0.01
+
+doping region=1 n.type uniform conc=1.0E20 x.min=0.04 x.max=0.05
+
+
+
+
+
+spx.m l=0.0        s=0.0002
+
+spx.m l=0.05       s=0.0002 
+
+spy.m l=-0.01     s=0.001
+
+spy.m l=-0.004    s=0.0003
+
+spy.m l= 0.003    s=0.0003
+
+spy.m l= 0.004    s=0.0003
+
+spy.m l= 0.005    s=0.0005
+
+spy.m l= 0.006    s=0.0005
+
+
+
+spz.m l= -0.006    s=0.0005
+
+spz.m l= -0.005    s=0.0005
+
+spz.m l= -0.004   s=0.0005
+
+spz.m l=-0.003    s=0.0003
+
+spz.m l= 0.003    s=0.0003
+
+spz.m l= 0.004    s=0.0005
+
+spz.m l= 0.005    s=0.0005
+
+spz.m l= 0.006    s=0.0005
+
+
+
+
+
+output band.par con.band val.band eigens=8 impact
+
+
+
+models  schrodinger ^p.schro negf_ms ^Ox.Schro  sp.fast  sp.geom=2dyz
+
+   
+
+method carriers=0
+
+
+
+
+
+
+
+solve init
+
+
+
+solve   v3=1.0
+
+save outf=quantumex16_negf_vg00_vd10.str negf.log
+
+
+
+
+
+log outf=quantumex16_negf_IVg_vd10.log
+
+solve  v3=1.0 v1=0.0 vstep=0.05 vfinal=1.2 name=gate
+
+log off
+
+save outf=quantumex16_negf_vg12_vd10.str negf.log
+
+
+
+
+
+
+
+quit
